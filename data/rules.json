@@ -5,7 +5,7 @@
     "description": "Official certificate recording the death of a person. This is the starting certificate for workflows related to inheritance, legal heir determination, property transfer, pensions, and succession.",
     "life_event": "death",
     "department": "[SAMPLE] Births and Deaths Registration Department",
-    "office": "Sample Local Registrar Office",
+    "office": "[SAMPLE] Local Registrar Office",
     "prerequisites": [],
     "required_documents": [
       {"id": "medical_death_certificate", "name": "Medical Certificate of Cause of Death", "required": true},
@@ -31,7 +31,7 @@
     "description": "Certificate identifying the surviving legal heirs of a deceased person for purposes such as inheritance, pensions, benefits, and property-related processes.",
     "life_event": "death",
     "department": "[SAMPLE] Revenue Department",
-    "office": "Sample Tehsildar / Revenue Office",
+    "office": "[SAMPLE] Tehsildar / Revenue Office",
     "prerequisites": [
       {"rule_id": "death_certificate", "reason": "The deceased person's death must be officially established before legal heirs can be determined."}
     ],
@@ -62,7 +62,7 @@
     "description": "Process for updating land or property records to reflect the transfer of ownership or interest following the death of a property owner.",
     "life_event": "death",
     "department": "[SAMPLE] Revenue and Land Records Department",
-    "office": "Sample Tehsil / Land Records Office",
+    "office": "[SAMPLE] Tehsil / Land Records Office",
     "prerequisites": [
       {"rule_id": "death_certificate", "reason": "The previous property holder's death must be established."},
       {"rule_id": "legal_heir_certificate", "reason": "The legal heirs must be identified before the property record can be updated."}
@@ -95,7 +95,7 @@
     "description": "Confirmation that the parties meet the synthetic workflow conditions for marriage registration.",
     "life_event": "marriage",
     "department": "[SAMPLE] Family Status Department",
-    "office": "Sample Eligibility Review Desk",
+    "office": "[SAMPLE] Eligibility Review Desk",
     "prerequisites": [
       {"rule_id": "marriage_identity_verification", "reason": "Both people must be identified before their eligibility can be reviewed."}
     ],
@@ -119,7 +119,7 @@
     "description": "Submission of a synthetic notice that starts the marriage registration review period.",
     "life_event": "marriage",
     "department": "[SAMPLE] Marriage Notice Department",
-    "office": "Sample Notice Intake Desk",
+    "office": "[SAMPLE] Notice Intake Desk",
     "prerequisites": [
       {"rule_id": "marriage_eligibility_confirmation", "reason": "Eligibility must be confirmed before a marriage notice can be accepted."}
     ],
@@ -143,7 +143,7 @@
     "description": "Registration of a marriage after the notice and required supporting documents have been accepted.",
     "life_event": "marriage",
     "department": "[SAMPLE] Marriage Registration Department",
-    "office": "Sample Marriage Registration Desk",
+    "office": "[SAMPLE] Marriage Registration Desk",
     "prerequisites": [
       {"rule_id": "marriage_notice_submission", "reason": "An accepted marriage notice is required before registration."}
     ],
@@ -167,7 +167,7 @@
     "description": "Certificate confirming the completed synthetic marriage registration.",
     "life_event": "marriage",
     "department": "[SAMPLE] Certificate Issuance Department",
-    "office": "Sample Certificate Service Desk",
+    "office": "[SAMPLE] Certificate Service Desk",
     "prerequisites": [
       {"rule_id": "marriage_registration", "reason": "A completed marriage registration record is required before a certificate can be issued."}
     ],
@@ -190,7 +190,7 @@
     "description": "Optional update of a person's name in a synthetic civic record after marriage.",
     "life_event": "marriage",
     "department": "[SAMPLE] Civic Records Update Department",
-    "office": "Sample Records Update Desk",
+    "office": "[SAMPLE] Records Update Desk",
     "prerequisites": [
       {"rule_id": "marriage_certificate", "reason": "The marriage must be documented before a marriage-related name update can be considered."}
     ],
@@ -214,7 +214,7 @@
     "description": "Declaration of a spouse's interest in an existing property record for a synthetic joint-property workflow.",
     "life_event": "marriage",
     "department": "[SAMPLE] Joint Property Records Department",
-    "office": "Sample Joint Records Desk",
+    "office": "[SAMPLE] Joint Records Desk",
     "prerequisites": [
       {"rule_id": "marriage_certificate", "reason": "The relationship must be documented before a joint-property interest can be declared."}
     ],
@@ -238,7 +238,7 @@
     "description": "Search and retrieval of a synthetic property record needed before a property workflow begins.",
     "life_event": "property",
     "department": "[SAMPLE] Property Records Department",
-    "office": "Sample Property Records Desk",
+    "office": "[SAMPLE] Property Records Desk",
     "prerequisites": [],
     "required_documents": [
       {"id": "property_location_details", "name": "Property Location Details", "required": true},
@@ -259,7 +259,7 @@
     "description": "Verification of the current recorded ownership before a synthetic property transfer or update request.",
     "life_event": "property",
     "department": "[SAMPLE] Ownership Verification Department",
-    "office": "Sample Ownership Review Desk",
+    "office": "[SAMPLE] Ownership Review Desk",
     "prerequisites": [
       {"rule_id": "property_record_search", "reason": "A property record extract is needed to verify the current recorded owner."}
     ],
@@ -283,7 +283,7 @@
     "description": "Declaration of the parties and terms for a synthetic property transfer workflow.",
     "life_event": "property",
     "department": "[SAMPLE] Property Transfer Department",
-    "office": "Sample Transfer Intake Desk",
+    "office": "[SAMPLE] Transfer Intake Desk",
     "prerequisites": [
       {"rule_id": "property_ownership_verification", "reason": "Current ownership must be verified before a transfer can be declared."}
     ],
@@ -307,7 +307,7 @@
     "description": "Review of the synthetic property transfer request for missing documents and unresolved record conflicts.",
     "life_event": "property",
     "department": "[SAMPLE] Property Review Department",
-    "office": "Sample Transfer Review Desk",
+    "office": "[SAMPLE] Transfer Review Desk",
     "prerequisites": [
       {"rule_id": "property_transfer_declaration", "reason": "A submitted transfer declaration is required before clearance review."},
       {"rule_id": "property_record_search", "reason": "The current property record must be available for clearance review."}
@@ -332,7 +332,7 @@
     "description": "Registration of an approved synthetic transfer of property interest.",
     "life_event": "property",
     "department": "[SAMPLE] Property Registration Department",
-    "office": "Sample Property Registration Desk",
+    "office": "[SAMPLE] Property Registration Desk",
     "prerequisites": [
       {"rule_id": "property_transfer_clearance", "reason": "Transfer clearance must be issued before registration."}
     ],
@@ -356,7 +356,7 @@
     "description": "Update of a synthetic property record after a registered property transfer.",
     "life_event": "property",
     "department": "[SAMPLE] Property Record Update Department",
-    "office": "Sample Property Update Desk",
+    "office": "[SAMPLE] Property Update Desk",
     "prerequisites": [
       {"rule_id": "property_transfer_registration", "reason": "The transfer must be registered before the property record can be updated."},
       {"rule_id": "property_record_search", "reason": "The current property record must be available before it can be updated."}
@@ -381,7 +381,7 @@
     "description": "Update of a synthetic property record to include a documented joint property interest after marriage.",
     "life_event": "property",
     "department": "[SAMPLE] Joint Property Update Department",
-    "office": "Sample Joint Property Update Desk",
+    "office": "[SAMPLE] Joint Property Update Desk",
     "prerequisites": [
       {"rule_id": "joint_property_interest_declaration", "reason": "A joint-property interest must be declared before the record can be updated."},
       {"rule_id": "property_ownership_verification", "reason": "Current ownership must be verified before a joint record update."}
@@ -406,7 +406,7 @@
     "description": "Final synthetic account update after a property record mutation or joint property record update.",
     "life_event": "property",
     "department": "[SAMPLE] Property Account Services Department",
-    "office": "Sample Property Account Desk",
+    "office": "[SAMPLE] Property Account Desk",
     "prerequisites": [
       {"rule_id": "property_record_mutation", "reason": "A completed property record mutation can support the account update."}
     ],
