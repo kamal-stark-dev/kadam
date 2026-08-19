@@ -1,0 +1,427 @@
+[
+  {
+    "id": "death_certificate",
+    "name": "Death Certificate",
+    "description": "Official certificate recording the death of a person. This is the starting certificate for workflows related to inheritance, legal heir determination, property transfer, pensions, and succession.",
+    "life_event": "death",
+    "department": "[SAMPLE] Births and Deaths Registration Department",
+    "office": "Sample Local Registrar Office",
+    "prerequisites": [],
+    "required_documents": [
+      {"id": "medical_death_certificate", "name": "Medical Certificate of Cause of Death", "required": true},
+      {"id": "applicant_identity", "name": "Applicant Identity Proof", "required": true},
+      {"id": "deceased_identity", "name": "Deceased Identity Proof", "required": false}
+    ],
+    "outputs": [
+      {"id": "death_certificate", "name": "Death Certificate", "type": "certificate"}
+    ],
+    "enables": ["legal_heir_certificate"],
+    "estimated_processing_time": "7-15 working days",
+    "common_rejection_reasons": [
+      "Required medical death certificate is missing",
+      "Applicant identity information does not match the application",
+      "Death details could not be verified"
+    ],
+    "next_step": "Apply for a Legal Heir Certificate if inheritance or property-related services are required.",
+    "citizen_guidance": "Obtain the Death Certificate first. It is commonly required as a prerequisite for determining legal heirs and starting inheritance-related processes."
+  },
+  {
+    "id": "legal_heir_certificate",
+    "name": "Legal Heir Certificate",
+    "description": "Certificate identifying the surviving legal heirs of a deceased person for purposes such as inheritance, pensions, benefits, and property-related processes.",
+    "life_event": "death",
+    "department": "[SAMPLE] Revenue Department",
+    "office": "Sample Tehsildar / Revenue Office",
+    "prerequisites": [
+      {"rule_id": "death_certificate", "reason": "The deceased person's death must be officially established before legal heirs can be determined."}
+    ],
+    "required_documents": [
+      {"id": "death_certificate", "name": "Death Certificate", "required": true, "source_rule": "death_certificate"},
+      {"id": "applicant_identity", "name": "Applicant Identity Proof", "required": true},
+      {"id": "family_relationship_proof", "name": "Proof of Relationship to the Deceased", "required": true},
+      {"id": "address_proof", "name": "Address Proof", "required": true},
+      {"id": "family_member_details", "name": "Details of Surviving Family Members", "required": true}
+    ],
+    "outputs": [
+      {"id": "legal_heir_certificate", "name": "Legal Heir Certificate", "type": "certificate"}
+    ],
+    "enables": ["property_mutation"],
+    "estimated_processing_time": "15-30 working days",
+    "common_rejection_reasons": [
+      "Death Certificate is missing or cannot be verified",
+      "Proof of relationship is insufficient",
+      "Required family member information is incomplete",
+      "Applicant identity or address cannot be verified"
+    ],
+    "next_step": "If the deceased owned property, use the Legal Heir Certificate to begin the property mutation process.",
+    "citizen_guidance": "Do not start the property mutation application until you have the Legal Heir Certificate if the mutation workflow requires it."
+  },
+  {
+    "id": "property_mutation",
+    "name": "Property Mutation",
+    "description": "Process for updating land or property records to reflect the transfer of ownership or interest following the death of a property owner.",
+    "life_event": "death",
+    "department": "[SAMPLE] Revenue and Land Records Department",
+    "office": "Sample Tehsil / Land Records Office",
+    "prerequisites": [
+      {"rule_id": "death_certificate", "reason": "The previous property holder's death must be established."},
+      {"rule_id": "legal_heir_certificate", "reason": "The legal heirs must be identified before the property record can be updated."}
+    ],
+    "required_documents": [
+      {"id": "death_certificate", "name": "Death Certificate", "required": true, "source_rule": "death_certificate"},
+      {"id": "legal_heir_certificate", "name": "Legal Heir Certificate", "required": true, "source_rule": "legal_heir_certificate"},
+      {"id": "property_record", "name": "Existing Property / Land Record", "required": true},
+      {"id": "applicant_identity", "name": "Applicant Identity Proof", "required": true},
+      {"id": "property_ownership_proof", "name": "Proof of Property Ownership", "required": true}
+    ],
+    "outputs": [
+      {"id": "property_mutation_record", "name": "Updated Property Mutation Record", "type": "record"}
+    ],
+    "enables": ["succession_certificate"],
+    "estimated_processing_time": "15-45 working days",
+    "common_rejection_reasons": [
+      "Death Certificate is missing or cannot be verified",
+      "Legal Heir Certificate is missing or cannot be verified",
+      "Property ownership records do not match the application",
+      "Property details are incomplete or inconsistent",
+      "Applicant identity cannot be verified"
+    ],
+    "next_step": "If a succession process is required, proceed to the Succession Certificate workflow after completing the applicable property and heir-record requirements.",
+    "citizen_guidance": "Before applying for mutation, make sure you have the Death Certificate and Legal Heir Certificate. Applying without these prerequisites may result in rejection."
+  },
+  {
+    "id": "marriage_eligibility_confirmation",
+    "name": "Marriage Eligibility Confirmation",
+    "description": "Confirmation that the parties meet the synthetic workflow conditions for marriage registration.",
+    "life_event": "marriage",
+    "department": "[SAMPLE] Family Status Department",
+    "office": "Sample Eligibility Review Desk",
+    "prerequisites": [
+      {"rule_id": "marriage_identity_verification", "reason": "Both people must be identified before their eligibility can be reviewed."}
+    ],
+    "required_documents": [
+      {"id": "marriage_identity_verification", "name": "Marriage Identity Verification", "required": true, "source_rule": "marriage_identity_verification"},
+      {"id": "eligibility_declaration", "name": "Eligibility Declaration", "required": true},
+      {"id": "date_of_birth_evidence", "name": "Date of Birth Evidence", "required": true}
+    ],
+    "outputs": [
+      {"id": "marriage_eligibility_confirmation", "name": "Marriage Eligibility Confirmation", "type": "certificate"}
+    ],
+    "enables": ["marriage_notice_submission"],
+    "estimated_processing_time": "3-7 working days",
+    "common_rejection_reasons": ["Identity verification is missing", "Eligibility declaration is incomplete", "Date of birth evidence is inconsistent"],
+    "next_step": "Submit the marriage notice once eligibility is confirmed.",
+    "citizen_guidance": "Do not submit a marriage notice until the identity and eligibility checks are complete."
+  },
+  {
+    "id": "marriage_notice_submission",
+    "name": "Marriage Notice Submission",
+    "description": "Submission of a synthetic notice that starts the marriage registration review period.",
+    "life_event": "marriage",
+    "department": "[SAMPLE] Marriage Notice Department",
+    "office": "Sample Notice Intake Desk",
+    "prerequisites": [
+      {"rule_id": "marriage_eligibility_confirmation", "reason": "Eligibility must be confirmed before a marriage notice can be accepted."}
+    ],
+    "required_documents": [
+      {"id": "marriage_eligibility_confirmation", "name": "Marriage Eligibility Confirmation", "required": true, "source_rule": "marriage_eligibility_confirmation"},
+      {"id": "marriage_notice_form", "name": "Marriage Notice Form", "required": true},
+      {"id": "contact_details", "name": "Contact Details", "required": true}
+    ],
+    "outputs": [
+      {"id": "marriage_notice_record", "name": "Marriage Notice Record", "type": "record"}
+    ],
+    "enables": ["marriage_registration"],
+    "estimated_processing_time": "5-10 working days",
+    "common_rejection_reasons": ["Eligibility confirmation is missing", "Marriage notice form is incomplete", "Contact details are invalid"],
+    "next_step": "Proceed to marriage registration after the notice review is complete.",
+    "citizen_guidance": "Keep the notice record available; it is required for the registration application."
+  },
+  {
+    "id": "marriage_registration",
+    "name": "Marriage Registration",
+    "description": "Registration of a marriage after the notice and required supporting documents have been accepted.",
+    "life_event": "marriage",
+    "department": "[SAMPLE] Marriage Registration Department",
+    "office": "Sample Marriage Registration Desk",
+    "prerequisites": [
+      {"rule_id": "marriage_notice_submission", "reason": "An accepted marriage notice is required before registration."}
+    ],
+    "required_documents": [
+      {"id": "marriage_notice_record", "name": "Marriage Notice Record", "required": true, "source_rule": "marriage_notice_submission"},
+      {"id": "ceremony_confirmation", "name": "Ceremony Confirmation", "required": true},
+      {"id": "witness_declarations", "name": "Witness Declarations", "required": true}
+    ],
+    "outputs": [
+      {"id": "marriage_registration_record", "name": "Marriage Registration Record", "type": "record"}
+    ],
+    "enables": ["marriage_certificate"],
+    "estimated_processing_time": "3-7 working days",
+    "common_rejection_reasons": ["Marriage notice record is missing", "Ceremony confirmation is incomplete", "Witness declarations are missing"],
+    "next_step": "Request the Marriage Certificate after the registration record is issued.",
+    "citizen_guidance": "Bring all required witness and ceremony evidence to avoid a delayed registration."
+  },
+  {
+    "id": "marriage_certificate",
+    "name": "Marriage Certificate",
+    "description": "Certificate confirming the completed synthetic marriage registration.",
+    "life_event": "marriage",
+    "department": "[SAMPLE] Certificate Issuance Department",
+    "office": "Sample Certificate Service Desk",
+    "prerequisites": [
+      {"rule_id": "marriage_registration", "reason": "A completed marriage registration record is required before a certificate can be issued."}
+    ],
+    "required_documents": [
+      {"id": "marriage_registration_record", "name": "Marriage Registration Record", "required": true, "source_rule": "marriage_registration"},
+      {"id": "certificate_request", "name": "Certificate Request", "required": true}
+    ],
+    "outputs": [
+      {"id": "marriage_certificate", "name": "Marriage Certificate", "type": "certificate"}
+    ],
+    "enables": ["marriage_name_update", "joint_property_interest_declaration"],
+    "estimated_processing_time": "2-5 working days",
+    "common_rejection_reasons": ["Marriage registration record is missing", "Certificate request is incomplete"],
+    "next_step": "Use the Marriage Certificate for any optional record updates or joint property requests.",
+    "citizen_guidance": "Keep a copy of the Marriage Certificate; it is the prerequisite for marriage-related record updates in this sample workflow."
+  },
+  {
+    "id": "marriage_name_update",
+    "name": "Marriage-Related Name Update",
+    "description": "Optional update of a person's name in a synthetic civic record after marriage.",
+    "life_event": "marriage",
+    "department": "[SAMPLE] Civic Records Update Department",
+    "office": "Sample Records Update Desk",
+    "prerequisites": [
+      {"rule_id": "marriage_certificate", "reason": "The marriage must be documented before a marriage-related name update can be considered."}
+    ],
+    "required_documents": [
+      {"id": "marriage_certificate", "name": "Marriage Certificate", "required": true, "source_rule": "marriage_certificate"},
+      {"id": "name_update_request", "name": "Name Update Request", "required": true},
+      {"id": "current_identity_proof", "name": "Current Identity Proof", "required": true}
+    ],
+    "outputs": [
+      {"id": "updated_name_record", "name": "Updated Name Record", "type": "record"}
+    ],
+    "enables": [],
+    "estimated_processing_time": "5-12 working days",
+    "common_rejection_reasons": ["Marriage Certificate is missing", "Name update request is incomplete", "Current identity proof does not match the request"],
+    "next_step": "No further step is required in this sample name-update workflow.",
+    "citizen_guidance": "This is optional. Apply only when you want a civic record to reflect a name change related to marriage."
+  },
+  {
+    "id": "joint_property_interest_declaration",
+    "name": "Joint Property Interest Declaration",
+    "description": "Declaration of a spouse's interest in an existing property record for a synthetic joint-property workflow.",
+    "life_event": "marriage",
+    "department": "[SAMPLE] Joint Property Records Department",
+    "office": "Sample Joint Records Desk",
+    "prerequisites": [
+      {"rule_id": "marriage_certificate", "reason": "The relationship must be documented before a joint-property interest can be declared."}
+    ],
+    "required_documents": [
+      {"id": "marriage_certificate", "name": "Marriage Certificate", "required": true, "source_rule": "marriage_certificate"},
+      {"id": "property_record", "name": "Existing Property Record", "required": true},
+      {"id": "owner_consent", "name": "Current Owner Consent", "required": true}
+    ],
+    "outputs": [
+      {"id": "joint_property_interest_declaration", "name": "Joint Property Interest Declaration", "type": "record"}
+    ],
+    "enables": ["joint_property_record_update"],
+    "estimated_processing_time": "5-10 working days",
+    "common_rejection_reasons": ["Marriage Certificate is missing", "Existing property record is missing", "Current owner consent is missing"],
+    "next_step": "Apply for a joint property record update after the declaration is accepted.",
+    "citizen_guidance": "This declaration does not itself change ownership; it prepares the required evidence for the next record-update step."
+  },
+  {
+    "id": "property_record_search",
+    "name": "Property Record Search",
+    "description": "Search and retrieval of a synthetic property record needed before a property workflow begins.",
+    "life_event": "property",
+    "department": "[SAMPLE] Property Records Department",
+    "office": "Sample Property Records Desk",
+    "prerequisites": [],
+    "required_documents": [
+      {"id": "property_location_details", "name": "Property Location Details", "required": true},
+      {"id": "requester_identity", "name": "Requester Identity Proof", "required": true}
+    ],
+    "outputs": [
+      {"id": "property_record_extract", "name": "Property Record Extract", "type": "record"}
+    ],
+    "enables": ["property_ownership_verification"],
+    "estimated_processing_time": "1-3 working days",
+    "common_rejection_reasons": ["Property location details are incomplete", "Requester identity cannot be verified", "No matching property record was found"],
+    "next_step": "Verify the property ownership details using the record extract.",
+    "citizen_guidance": "Start with an accurate property location description so the correct record can be located."
+  },
+  {
+    "id": "property_ownership_verification",
+    "name": "Property Ownership Verification",
+    "description": "Verification of the current recorded ownership before a synthetic property transfer or update request.",
+    "life_event": "property",
+    "department": "[SAMPLE] Ownership Verification Department",
+    "office": "Sample Ownership Review Desk",
+    "prerequisites": [
+      {"rule_id": "property_record_search", "reason": "A property record extract is needed to verify the current recorded owner."}
+    ],
+    "required_documents": [
+      {"id": "property_record_extract", "name": "Property Record Extract", "required": true, "source_rule": "property_record_search"},
+      {"id": "ownership_claim_evidence", "name": "Ownership Claim Evidence", "required": true},
+      {"id": "requester_identity", "name": "Requester Identity Proof", "required": true}
+    ],
+    "outputs": [
+      {"id": "property_ownership_verification", "name": "Property Ownership Verification", "type": "certificate"}
+    ],
+    "enables": ["property_transfer_declaration", "joint_property_record_update"],
+    "estimated_processing_time": "5-10 working days",
+    "common_rejection_reasons": ["Property record extract is missing", "Ownership claim evidence is insufficient", "Requester identity does not match the claim"],
+    "next_step": "Submit a property transfer declaration or the applicable property record update request.",
+    "citizen_guidance": "Do not begin a property transfer request until the current ownership record has been verified."
+  },
+  {
+    "id": "property_transfer_declaration",
+    "name": "Property Transfer Declaration",
+    "description": "Declaration of the parties and terms for a synthetic property transfer workflow.",
+    "life_event": "property",
+    "department": "[SAMPLE] Property Transfer Department",
+    "office": "Sample Transfer Intake Desk",
+    "prerequisites": [
+      {"rule_id": "property_ownership_verification", "reason": "Current ownership must be verified before a transfer can be declared."}
+    ],
+    "required_documents": [
+      {"id": "property_ownership_verification", "name": "Property Ownership Verification", "required": true, "source_rule": "property_ownership_verification"},
+      {"id": "transfer_declaration_form", "name": "Transfer Declaration Form", "required": true},
+      {"id": "recipient_identity", "name": "Recipient Identity Proof", "required": true}
+    ],
+    "outputs": [
+      {"id": "property_transfer_declaration", "name": "Property Transfer Declaration", "type": "record"}
+    ],
+    "enables": ["property_transfer_clearance"],
+    "estimated_processing_time": "3-7 working days",
+    "common_rejection_reasons": ["Ownership verification is missing", "Transfer declaration form is incomplete", "Recipient identity cannot be verified"],
+    "next_step": "Request property transfer clearance after the declaration is accepted.",
+    "citizen_guidance": "Ensure the proposed recipient details match the transfer declaration before submission."
+  },
+  {
+    "id": "property_transfer_clearance",
+    "name": "Property Transfer Clearance",
+    "description": "Review of the synthetic property transfer request for missing documents and unresolved record conflicts.",
+    "life_event": "property",
+    "department": "[SAMPLE] Property Review Department",
+    "office": "Sample Transfer Review Desk",
+    "prerequisites": [
+      {"rule_id": "property_transfer_declaration", "reason": "A submitted transfer declaration is required before clearance review."},
+      {"rule_id": "property_record_search", "reason": "The current property record must be available for clearance review."}
+    ],
+    "required_documents": [
+      {"id": "property_transfer_declaration", "name": "Property Transfer Declaration", "required": true, "source_rule": "property_transfer_declaration"},
+      {"id": "property_record_extract", "name": "Property Record Extract", "required": true, "source_rule": "property_record_search"},
+      {"id": "transfer_supporting_evidence", "name": "Transfer Supporting Evidence", "required": true}
+    ],
+    "outputs": [
+      {"id": "property_transfer_clearance", "name": "Property Transfer Clearance", "type": "certificate"}
+    ],
+    "enables": ["property_transfer_registration"],
+    "estimated_processing_time": "7-15 working days",
+    "common_rejection_reasons": ["Transfer declaration is missing", "Property record details conflict with the request", "Supporting evidence is incomplete"],
+    "next_step": "Register the property transfer after clearance is issued.",
+    "citizen_guidance": "Clearance checks the record and evidence before registration, helping prevent a failed final submission."
+  },
+  {
+    "id": "property_transfer_registration",
+    "name": "Property Transfer Registration",
+    "description": "Registration of an approved synthetic transfer of property interest.",
+    "life_event": "property",
+    "department": "[SAMPLE] Property Registration Department",
+    "office": "Sample Property Registration Desk",
+    "prerequisites": [
+      {"rule_id": "property_transfer_clearance", "reason": "Transfer clearance must be issued before registration."}
+    ],
+    "required_documents": [
+      {"id": "property_transfer_clearance", "name": "Property Transfer Clearance", "required": true, "source_rule": "property_transfer_clearance"},
+      {"id": "signed_transfer_record", "name": "Signed Transfer Record", "required": true},
+      {"id": "party_identity_proofs", "name": "Party Identity Proofs", "required": true}
+    ],
+    "outputs": [
+      {"id": "property_transfer_registration", "name": "Property Transfer Registration", "type": "record"}
+    ],
+    "enables": ["property_record_mutation"],
+    "estimated_processing_time": "5-12 working days",
+    "common_rejection_reasons": ["Transfer clearance is missing", "Signed transfer record is incomplete", "Party identity proofs are missing"],
+    "next_step": "Apply to update the property record after the transfer is registered.",
+    "citizen_guidance": "Registration records the transfer; the property record still needs its separate update step."
+  },
+  {
+    "id": "property_record_mutation",
+    "name": "Property Record Mutation",
+    "description": "Update of a synthetic property record after a registered property transfer.",
+    "life_event": "property",
+    "department": "[SAMPLE] Property Record Update Department",
+    "office": "Sample Property Update Desk",
+    "prerequisites": [
+      {"rule_id": "property_transfer_registration", "reason": "The transfer must be registered before the property record can be updated."},
+      {"rule_id": "property_record_search", "reason": "The current property record must be available before it can be updated."}
+    ],
+    "required_documents": [
+      {"id": "property_transfer_registration", "name": "Property Transfer Registration", "required": true, "source_rule": "property_transfer_registration"},
+      {"id": "property_record_extract", "name": "Property Record Extract", "required": true, "source_rule": "property_record_search"},
+      {"id": "mutation_request", "name": "Property Record Update Request", "required": true}
+    ],
+    "outputs": [
+      {"id": "updated_property_record", "name": "Updated Property Record", "type": "record"}
+    ],
+    "enables": ["property_account_update"],
+    "estimated_processing_time": "7-15 working days",
+    "common_rejection_reasons": ["Transfer registration is missing", "Property record extract is missing", "Property record update request is incomplete"],
+    "next_step": "Update the synthetic property account after the record mutation is complete.",
+    "citizen_guidance": "Do not assume registration alone updates the property record; submit this separate update request."
+  },
+  {
+    "id": "joint_property_record_update",
+    "name": "Joint Property Record Update",
+    "description": "Update of a synthetic property record to include a documented joint property interest after marriage.",
+    "life_event": "property",
+    "department": "[SAMPLE] Joint Property Update Department",
+    "office": "Sample Joint Property Update Desk",
+    "prerequisites": [
+      {"rule_id": "joint_property_interest_declaration", "reason": "A joint-property interest must be declared before the record can be updated."},
+      {"rule_id": "property_ownership_verification", "reason": "Current ownership must be verified before a joint record update."}
+    ],
+    "required_documents": [
+      {"id": "joint_property_interest_declaration", "name": "Joint Property Interest Declaration", "required": true, "source_rule": "joint_property_interest_declaration"},
+      {"id": "property_ownership_verification", "name": "Property Ownership Verification", "required": true, "source_rule": "property_ownership_verification"},
+      {"id": "joint_update_request", "name": "Joint Property Update Request", "required": true}
+    ],
+    "outputs": [
+      {"id": "joint_property_record", "name": "Joint Property Record", "type": "record"}
+    ],
+    "enables": [],
+    "estimated_processing_time": "10-20 working days",
+    "common_rejection_reasons": ["Joint property interest declaration is missing", "Ownership verification is missing", "Joint property update request is incomplete"],
+    "next_step": "No further step is required in this sample joint-property workflow.",
+    "citizen_guidance": "Both the marriage-related declaration and the existing ownership verification are required; neither replaces the other."
+  },
+  {
+    "id": "property_account_update",
+    "name": "Property Account Update",
+    "description": "Final synthetic account update after a property record mutation or joint property record update.",
+    "life_event": "property",
+    "department": "[SAMPLE] Property Account Services Department",
+    "office": "Sample Property Account Desk",
+    "prerequisites": [
+      {"rule_id": "property_record_mutation", "reason": "A completed property record mutation can support the account update."}
+    ],
+    "required_documents": [
+      {"id": "updated_property_record", "name": "Updated Property Record", "required": true, "source_rule": "property_record_mutation"},
+      {"id": "account_update_request", "name": "Property Account Update Request", "required": true},
+      {"id": "account_holder_identity", "name": "Account Holder Identity Proof", "required": true}
+    ],
+    "outputs": [
+      {"id": "updated_property_account", "name": "Updated Property Account", "type": "record"}
+    ],
+    "enables": [],
+    "estimated_processing_time": "3-7 working days",
+    "common_rejection_reasons": ["Updated property record is missing", "Property account update request is incomplete", "Account holder identity cannot be verified"],
+    "next_step": "No further step is required in this sample property account workflow.",
+    "citizen_guidance": "Complete the record update first, then use its result to update the related synthetic property account."
+  }
+]
