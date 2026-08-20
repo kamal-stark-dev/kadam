@@ -77,7 +77,7 @@
     "outputs": [
       {"id": "property_mutation_record", "name": "Updated Property Mutation Record", "type": "record"}
     ],
-    "enables": ["succession_certificate"],
+    "enables": [],
     "estimated_processing_time": "15-45 working days",
     "common_rejection_reasons": [
       "Death Certificate is missing or cannot be verified",
@@ -86,8 +86,32 @@
       "Property details are incomplete or inconsistent",
       "Applicant identity cannot be verified"
     ],
-    "next_step": "If a succession process is required, proceed to the Succession Certificate workflow after completing the applicable property and heir-record requirements.",
+    "next_step": "This is the final step in the sample death-related property chain. No further certificate depends on it in this dataset.",
     "citizen_guidance": "Before applying for mutation, make sure you have the Death Certificate and Legal Heir Certificate. Applying without these prerequisites may result in rejection."
+  },
+  {
+    "id": "marriage_identity_verification",
+    "name": "Marriage Identity Verification",
+    "description": "Verification of the identity of both parties intending to marry. This is the starting step for the sample marriage workflow, required before eligibility can be reviewed.",
+    "life_event": "marriage",
+    "department": "[SAMPLE] Family Status Department",
+    "office": "[SAMPLE] Identity Verification Desk",
+    "prerequisites": [],
+    "required_documents": [
+      {"id": "applicant_identity_a", "name": "Identity Proof - Party A", "required": true},
+      {"id": "applicant_identity_b", "name": "Identity Proof - Party B", "required": true}
+    ],
+    "outputs": [
+      {"id": "marriage_identity_verification", "name": "Marriage Identity Verification", "type": "record"}
+    ],
+    "enables": ["marriage_eligibility_confirmation"],
+    "estimated_processing_time": "2-5 working days",
+    "common_rejection_reasons": [
+      "Identity proof for one or both parties is missing",
+      "Identity documents do not match the application details"
+    ],
+    "next_step": "Proceed to marriage eligibility confirmation once identity has been verified.",
+    "citizen_guidance": "This is the first step before eligibility can be reviewed for marriage registration."
   },
   {
     "id": "marriage_eligibility_confirmation",
@@ -247,11 +271,11 @@
     "outputs": [
       {"id": "property_record_extract", "name": "Property Record Extract", "type": "record"}
     ],
-    "enables": ["property_ownership_verification"],
+    "enables": ["property_ownership_verification", "property_transfer_clearance", "property_record_mutation"],
     "estimated_processing_time": "1-3 working days",
     "common_rejection_reasons": ["Property location details are incomplete", "Requester identity cannot be verified", "No matching property record was found"],
     "next_step": "Verify the property ownership details using the record extract.",
-    "citizen_guidance": "Start with an accurate property location description so the correct record can be located."
+    "citizen_guidance": "Start with an accurate property location description so the correct record can be located. This record extract is reused later in the transfer clearance and mutation steps, so keep it on hand."
   },
   {
     "id": "property_ownership_verification",
